@@ -15,6 +15,11 @@ use BearFramework\App;
 class FacebookLoginProvider implements ILoginProvider
 {
 
+    public function hasLoginButton(): bool
+    {
+        return true;
+    }
+
     public function getLoginButtonText(): string
     {
         if (_INTERNAL_IVOPETKOV_FACEBOOK_USERS_BEARFRAMEWORK_ADDON_LANGUAGE === 'bg') {
@@ -24,16 +29,7 @@ class FacebookLoginProvider implements ILoginProvider
         }
     }
 
-    public function getDescriptionHTML(): string
-    {
-        if (_INTERNAL_IVOPETKOV_FACEBOOK_USERS_BEARFRAMEWORK_ADDON_LANGUAGE === 'bg') {
-            return 'Facebook профил';
-        } else {
-            return 'Facebook account';
-        }
-    }
-
-    public function hasLogout(): bool
+    public function hasLogoutButton(): bool
     {
         return true;
     }
@@ -60,6 +56,11 @@ class FacebookLoginProvider implements ILoginProvider
             $user->url = 'https://facebook.com/' . $userData['id'] . '/';
         } else {
             $user->name = 'Anonymous';
+        }
+        if (_INTERNAL_IVOPETKOV_FACEBOOK_USERS_BEARFRAMEWORK_ADDON_LANGUAGE === 'bg') {
+            $user->description = 'Facebook профил';
+        } else {
+            $user->description = 'Facebook account';
         }
         return $user;
     }
