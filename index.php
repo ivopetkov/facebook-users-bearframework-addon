@@ -13,14 +13,19 @@ use IvoPetkov\BearFrameworkAddons\FacebookLoginProvider;
 $app = App::get();
 $context = $app->context->get(__FILE__);
 
-$options = $app->addons->get('ivopetkov/users-bearframework-addon')->options;
-define('_INTERNAL_IVOPETKOV_FACEBOOK_USERS_BEARFRAMEWORK_ADDON_LANGUAGE', isset($options['language']) ? strtolower($options['language']) : 'en');
-
 $context->classes
         ->add(FacebookLoginProvider::class, 'classes/FacebookLoginProvider.php');
 
 $app->users
         ->addProvider('facebook', FacebookLoginProvider::class);
+
+$app->localization
+        ->addDictionary('en', function() use ($context) {
+            return include $context->dir . '/locales/en.php';
+        })
+        ->addDictionary('bg', function() use ($context) {
+            return include $context->dir . '/locales/bg.php';
+        });
 
 $getAddonOptions = function() use ($app) {
     $addonOptions = $app->addons->get('ivopetkov/facebook-users-bearframework-addon')->options;

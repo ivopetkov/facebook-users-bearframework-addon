@@ -9,6 +9,7 @@
 
 BearFramework\Addons::register('ivopetkov/facebook-users-bearframework-addon', __DIR__, [
     'require' => [
-        'ivopetkov/users-bearframework-addon'
+        'ivopetkov/users-bearframework-addon',
+        'bearframework/localization-addon'
     ]
 ]);

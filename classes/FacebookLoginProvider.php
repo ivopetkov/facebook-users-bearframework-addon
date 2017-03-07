@@ -22,11 +22,7 @@ class FacebookLoginProvider implements ILoginProvider
 
     public function getLoginButtonText(): string
     {
-        if (_INTERNAL_IVOPETKOV_FACEBOOK_USERS_BEARFRAMEWORK_ADDON_LANGUAGE === 'bg') {
-            return 'Вход с Facebook';
-        } else {
-            return 'Login with Facebook';
-        }
+        return __('ivopetkov.users.facebook.loginWithFacebook');
     }
 
     public function hasLogoutButton(): bool
@@ -54,11 +50,7 @@ class FacebookLoginProvider implements ILoginProvider
         } else {
             $properties['name'] = 'Anonymous';
         }
-//        if (_INTERNAL_IVOPETKOV_FACEBOOK_USERS_BEARFRAMEWORK_ADDON_LANGUAGE === 'bg') {
-//            $user->description = 'Facebook профил';
-//        } else {
-//            $user->description = 'Facebook account';
-//        }
+        $properties['description'] = __('ivopetkov.users.facebook.description');
         return $user;
     }
 
