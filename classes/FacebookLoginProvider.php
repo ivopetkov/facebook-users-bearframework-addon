@@ -43,25 +43,22 @@ class FacebookLoginProvider implements ILoginProvider
         return $response;
     }
 
-    public function makeUser(string $id): \IvoPetkov\BearFrameworkAddons\Users\User
+    public function getUserProperties(string $id): array
     {
-        $app = App::get();
+        $properties = [];
         $userData = $app->users->getUserData('facebook', $id);
-        $user = $app->users->make();
-        $user->provider = 'facebook';
-        $user->id = $id;
         if (is_array($userData)) {
-            $user->name = $userData['name'];
-            $user->image = 'https://graph.facebook.com/v2.8/' . $userData['id'] . '/picture?width=1000';
-            $user->url = 'https://facebook.com/' . $userData['id'] . '/';
+            $properties['name'] = $userData['name'];
+            $properties['image'] = 'https://graph.facebook.com/v2.8/' . $userData['id'] . '/picture?width=1000';
+            $$properties['url'] = 'https://facebook.com/' . $userData['id'] . '/';
         } else {
-            $user->name = 'Anonymous';
+            $properties['name'] = 'Anonymous';
         }
-        if (_INTERNAL_IVOPETKOV_FACEBOOK_USERS_BEARFRAMEWORK_ADDON_LANGUAGE === 'bg') {
-            $user->description = 'Facebook профил';
-        } else {
-            $user->description = 'Facebook account';
-        }
+//        if (_INTERNAL_IVOPETKOV_FACEBOOK_USERS_BEARFRAMEWORK_ADDON_LANGUAGE === 'bg') {
+//            $user->description = 'Facebook профил';
+//        } else {
+//            $user->description = 'Facebook account';
+//        }
         return $user;
     }
 
