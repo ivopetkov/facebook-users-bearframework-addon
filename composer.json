@@ -13,9 +13,9 @@
     ],
     "require": {
         "php": ">=7.1",
-        "bearframework/bearframework": "0.8.*|0.9.*",
-        "bearframework/localization-addon": "*",
-        "ivopetkov/users-bearframework-addon": "*"
+        "bearframework/bearframework": "0.8.*|0.9.*|0.10.0-beta.1",
+        "bearframework/localization-addon": "v0.2.0-beta.1",
+        "ivopetkov/users-bearframework-addon": "0.1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8"
