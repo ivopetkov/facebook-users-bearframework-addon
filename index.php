@@ -79,7 +79,7 @@ $app->routes
                         'id' => $userData['id'],
                         'name' => $userData['name']
                     ]);
-                    $app->currentUser->set('facebook', $id);
+                    $app->currentUser->login('facebook', $id);
                 }
             }
             $response = new App\Response\TemporaryRedirect($referer);
