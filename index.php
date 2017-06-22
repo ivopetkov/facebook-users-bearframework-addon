@@ -74,9 +74,9 @@ $app->routes
                 $accessToken = $parts['access_token'];
                 $userData = json_decode($makeRequest("https://graph.facebook.com/v2.8/me?access_token=" . urlencode($accessToken)), true);
                 if (isset($userData['id'], $userData['name'])) {
-                    $id = md5('facebook' . $userData['id']);
+                    $id = $userData['id']; //md5('facebook' . $userData['id']);
                     $app->users->saveUserData('facebook', $id, [
-                        'id' => $userData['id'],
+                        'id' => $id,
                         'name' => $userData['name']
                     ]);
                     $app->currentUser->login('facebook', $id);
