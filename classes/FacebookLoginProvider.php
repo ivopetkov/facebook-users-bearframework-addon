@@ -35,7 +35,7 @@ class FacebookLoginProvider implements ILoginProvider
         $response = new \IvoPetkov\BearFrameworkAddons\Users\LoginResponse();
         $app = App::get();
         $locationUrl = strlen($context->locationUrl) > 0 ? $context->locationUrl : $app->urls->get('/');
-        $response->redirectUrl = $app->urls->get('/-ivopetkov-facebook-user-redirect?referer=' . rawurlencode($locationUrl));
+        $response->redirectUrl = $app->urls->get('/-ivopetkov-facebook-user-redirect?referer=' . rawurlencode($locationUrl), false);
         return $response;
     }
 
