@@ -45,7 +45,7 @@ $app->routes
         ->add('/-ivopetkov-facebook-user-redirect', function() use ($app, $getAddonOptions) {
             $addonOptions = $getAddonOptions();
             $referer = (string) $app->request->query->getValue('referer');
-            $redirectUri = $app->urls->get('/-ivopetkov-facebook-user-auth?referer=' . rawurlencode($referer));
+            $redirectUri = $app->urls->get('/-ivopetkov-facebook-user-auth?referer=' . rawurlencode($referer), false);
             $url = 'https://www.facebook.com/v2.8/dialog/oauth?client_id=' . $addonOptions['facebookAppID'] . '&redirect_uri=' . urlencode($redirectUri);
             $response = new App\Response\TemporaryRedirect($url);
             return $response;
@@ -68,7 +68,7 @@ $app->routes
                 return $response;
             };
 
-            $redirectUri = $app->urls->get('/-ivopetkov-facebook-user-auth?referer=' . rawurlencode($referer));
+            $redirectUri = $app->urls->get('/-ivopetkov-facebook-user-auth?referer=' . rawurlencode($referer), false);
 
             $tokenUrl = 'https://graph.facebook.com/v2.8/oauth/access_token?client_id=' . $addonOptions['facebookAppID'] . '&redirect_uri=' . urlencode($redirectUri) . '&client_secret=' . $addonOptions['facebookAppSecret'] . '&code=' . rawurlencode($code);
             $response = $makeRequest($tokenUrl);
