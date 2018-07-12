@@ -7,4 +7,10 @@
  * Free to use under the MIT license.
  */
 
-require __DIR__ . '/../vendor/autoload.php';
+/**
+ * @runTestsInSeparateProcesses
+ */
+class FacebookUsersTest extends BearFramework\AddonTests\PHPUnitTestCase
+{
+    
+}
