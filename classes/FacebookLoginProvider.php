@@ -46,7 +46,7 @@ class FacebookLoginProvider implements ILoginProvider
         $userData = $app->users->getUserData('facebook', $id);
         if (is_array($userData)) {
             $properties['name'] = $userData['name'];
-            $properties['image'] = 'https://graph.facebook.com/v2.8/' . $userData['id'] . '/picture?width=1000';
+            $properties['image'] = 'https://graph.facebook.com/v3.2/' . $userData['id'] . '/picture?width=1000';
             $properties['url'] = 'https://facebook.com/' . $userData['id'] . '/';
         } else {
             $properties['name'] = 'Anonymous';
