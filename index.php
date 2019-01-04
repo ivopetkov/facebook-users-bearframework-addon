@@ -68,12 +68,12 @@ $app->routes
                     return $response;
                 };
 
-                $tokenUrl = 'https://graph.facebook.com/v2.8/oauth/access_token?client_id=' . $addonOptions['facebookAppID'] . '&redirect_uri=' . urlencode($addonOptions['oauthRedirectUrl']) . '&client_secret=' . $addonOptions['facebookAppSecret'] . '&code=' . rawurlencode($code);
+                $tokenUrl = 'https://graph.facebook.com/v3.2/oauth/access_token?client_id=' . $addonOptions['facebookAppID'] . '&redirect_uri=' . urlencode($addonOptions['oauthRedirectUrl']) . '&client_secret=' . $addonOptions['facebookAppSecret'] . '&code=' . rawurlencode($code);
                 $response = $makeRequest($tokenUrl);
                 $parts = json_decode($response, true);
                 if (isset($parts['access_token'])) {
                     $accessToken = $parts['access_token'];
-                    $userData = json_decode($makeRequest("https://graph.facebook.com/v2.8/me?access_token=" . urlencode($accessToken)), true);
+                    $userData = json_decode($makeRequest("https://graph.facebook.com/v3.2/me?access_token=" . urlencode($accessToken)), true);
                     if (isset($userData['id'], $userData['name'])) {
                         $id = $userData['id'];
                         $app->users->saveUserData('facebook', $id, [
