@@ -14,9 +14,9 @@
     "require": {
         "php": ">=7.1",
         "ext-curl": "*",
-        "bearframework/bearframework": "0.8.*|0.9.*|0.10.*",
+        "bearframework/bearframework": "0.11.*",
         "bearframework/localization-addon": "0.2.*",
-        "ivopetkov/users-bearframework-addon": "0.1.*|0.2.*"
+        "ivopetkov/users-bearframework-addon": "0.3.*"
     },
     "require-dev": {
         "bearframework/addon-tests": "0.1.*",
