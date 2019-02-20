@@ -15,6 +15,8 @@ use BearFramework\App;
 class FacebookLoginProvider implements ILoginProvider
 {
 
+    static private $config = null;
+
     public function hasLoginButton(): bool
     {
         return true;
@@ -35,7 +37,7 @@ class FacebookLoginProvider implements ILoginProvider
         $response = new \IvoPetkov\BearFrameworkAddons\Users\LoginResponse();
         $app = App::get();
         $locationUrl = strlen($context->locationUrl) > 0 ? $context->locationUrl : $app->urls->get('/');
-        $response->redirectUrl = $app->urls->get('/-ivopetkov-facebook-user-redirect?referer=' . rawurlencode($locationUrl), false);
+        $response->redirectUrl = $app->urls->get('/-ivopetkov-facebook-user-redirect') . '?referer=' . rawurlencode($locationUrl);
         return $response;
     }
 
@@ -71,6 +73,7 @@ class FacebookLoginProvider implements ILoginProvider
         if (!isset($config['oauthRedirectUrl'])) {
             throw new \Exception('The oauthRedirectUrl config variable is required!');
         }
+        self::$config = $config;
 
         $app->routes
                 ->add('*', function() use ($app, $config) {
@@ -100,22 +103,6 @@ class FacebookLoginProvider implements ILoginProvider
         }
         $code = (string) $app->request->query->getValue('code');
 
-        $getAddonOptions = function() use ($app) {
-            $addonOptions = $app->addons->get('ivopetkov/facebook-users-bearframework-addon')->options;
-            if (!isset($addonOptions['facebookAppID'])) {
-                throw new \Exception('The ivopetkov/facebook-users-bearframework-addon facebookAppID option is required');
-            }
-            if (!isset($addonOptions['facebookAppSecret'])) {
-                throw new \Exception('The ivopetkov/facebook-users-bearframework-addon facebookAppSecret option is required');
-            }
-            if (!isset($addonOptions['oauthRedirectUrl'])) {
-                throw new \Exception('The ivopetkov/facebook-users-bearframework-addon oauthRedirectUrl option is required');
-            }
-            return $addonOptions;
-        };
-
-        $addonOptions = $getAddonOptions();
-
         $makeRequest = function($url) {
             $curl = curl_init();
             curl_setopt_array($curl, array(
@@ -128,7 +115,7 @@ class FacebookLoginProvider implements ILoginProvider
             return $response;
         };
 
-        $tokenUrl = 'https://graph.facebook.com/v3.2/oauth/access_token?client_id=' . $addonOptions['facebookAppID'] . '&redirect_uri=' . urlencode($addonOptions['oauthRedirectUrl']) . '&client_secret=' . $addonOptions['facebookAppSecret'] . '&code=' . rawurlencode($code);
+        $tokenUrl = 'https://graph.facebook.com/v3.2/oauth/access_token?client_id=' . self::$config['facebookAppID'] . '&redirect_uri=' . urlencode(self::$config['oauthRedirectUrl']) . '&client_secret=' . self::$config['facebookAppSecret'] . '&code=' . rawurlencode($code);
         $response = $makeRequest($tokenUrl);
         $parts = json_decode($response, true);
         if (isset($parts['access_token'])) {
