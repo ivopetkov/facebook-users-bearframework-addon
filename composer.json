@@ -14,12 +14,12 @@
     "require": {
         "php": ">=7.1",
         "ext-curl": "*",
-        "bearframework/bearframework": "0.11.*",
+        "bearframework/bearframework": "1.*",
         "bearframework/localization-addon": "0.2.*",
         "ivopetkov/users-bearframework-addon": "0.3.*"
     },
     "require-dev": {
-        "bearframework/addon-tests": "0.1.*",
+        "bearframework/addon-tests": "0.3.*",
         "phpunit/phpunit": "7.*"
     },
     "autoload": {
