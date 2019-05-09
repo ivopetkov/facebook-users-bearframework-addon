@@ -9,27 +9,19 @@
 
 namespace IvoPetkov\BearFrameworkAddons;
 
-use IvoPetkov\BearFrameworkAddons\Users\ILoginProvider;
+use IvoPetkov\BearFrameworkAddons\Users\LoginProvider;
 use BearFramework\App;
 
-class FacebookLoginProvider implements ILoginProvider
+class FacebookLoginProvider extends LoginProvider
 {
 
     static private $config = null;
 
-    public function hasLoginButton(): bool
+    public function __construct()
     {
-        return true;
-    }
-
-    public function getLoginButtonText(): string
-    {
-        return __('ivopetkov.users.facebook.loginWithFacebook');
-    }
-
-    public function hasLogoutButton(): bool
-    {
-        return true;
+        $this->hasLogin = true;
+        $this->loginText = __('ivopetkov.users.facebook.loginWithFacebook');
+        $this->hasLogout = true;
     }
 
     public function login(\IvoPetkov\BearFrameworkAddons\Users\LoginContext $context): \IvoPetkov\BearFrameworkAddons\Users\LoginResponse
