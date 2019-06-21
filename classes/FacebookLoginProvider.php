@@ -41,7 +41,7 @@ class FacebookLoginProvider extends LoginProvider
         if (is_array($userData)) {
             $properties['name'] = $userData['name'];
             $properties['image'] = 'https://graph.facebook.com/v3.2/' . $userData['id'] . '/picture?width=1000';
-            $properties['url'] = 'https://facebook.com/' . $userData['id'] . '/';
+            //$properties['url'] = 'https://facebook.com/' . $userData['id'] . '/';
         } else {
             $properties['name'] = 'Anonymous';
         }
