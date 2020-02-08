@@ -68,18 +68,18 @@ class FacebookLoginProvider extends LoginProvider
         self::$config = $config;
 
         $app->routes
-                ->add('*', function() use ($app, $config) {
-                    if ($app->request->base . $app->request->path === $config['oauthRedirectUrl']) {
-                        return FacebookLoginProvider::handleOAuthRedirect();
-                    }
-                })
-                ->add('/-ivopetkov-facebook-user-redirect', function() use ($app, $config) {
-                    $referer = (string) $app->request->query->getValue('referer');
-                    $url = 'https://www.facebook.com/v3.2/dialog/oauth?client_id=' . $config['facebookAppID'] . '&redirect_uri=' . urlencode($config['oauthRedirectUrl']) . '&state=' . base64_encode($referer);
-                    $response = new App\Response\TemporaryRedirect($url);
-                    $response->headers->set($response->headers->make('Cache-Control', 'no-cache, no-store, must-revalidate'));
-                    return $response;
-                });
+            ->add('*', function () use ($app, $config) {
+                if ($app->request->base . $app->request->path === $config['oauthRedirectUrl']) {
+                    return FacebookLoginProvider::handleOAuthRedirect();
+                }
+            })
+            ->add('/-ivopetkov-facebook-user-redirect', function () use ($app, $config) {
+                $referer = (string) $app->request->query->getValue('referer');
+                $url = 'https://www.facebook.com/v3.2/dialog/oauth?client_id=' . $config['facebookAppID'] . '&redirect_uri=' . urlencode($config['oauthRedirectUrl']) . '&state=' . base64_encode($referer);
+                $response = new App\Response\TemporaryRedirect($url);
+                $response->headers->set($response->headers->make('Cache-Control', 'no-cache, no-store, must-revalidate'));
+                return $response;
+            });
     }
 
     /**
@@ -95,7 +95,7 @@ class FacebookLoginProvider extends LoginProvider
         }
         $code = (string) $app->request->query->getValue('code');
 
-        $makeRequest = function($url) {
+        $makeRequest = function ($url) {
             $curl = curl_init();
             curl_setopt_array($curl, array(
                 CURLOPT_RETURNTRANSFER => 1,
@@ -126,5 +126,4 @@ class FacebookLoginProvider extends LoginProvider
         $response->headers->set($response->headers->make('Cache-Control', 'no-cache, no-store, must-revalidate'));
         return $response;
     }
-
 }
