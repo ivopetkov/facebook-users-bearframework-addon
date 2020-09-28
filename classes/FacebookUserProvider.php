@@ -9,10 +9,10 @@
 
 namespace IvoPetkov\BearFrameworkAddons;
 
-use IvoPetkov\BearFrameworkAddons\Users\LoginProvider;
+use IvoPetkov\BearFrameworkAddons\Users\Provider;
 use BearFramework\App;
 
-class FacebookLoginProvider extends LoginProvider
+class FacebookUserProvider extends Provider
 {
 
     static private $config = null;
@@ -33,7 +33,7 @@ class FacebookLoginProvider extends LoginProvider
         return $response;
     }
 
-    public function getUserProperties(string $id): array
+    public function getProfileData(string $id): array
     {
         $app = App::get();
         $properties = [];
@@ -70,7 +70,7 @@ class FacebookLoginProvider extends LoginProvider
         $app->routes
             ->add('*', function () use ($app, $config) {
                 if ($app->request->base . $app->request->path === $config['oauthRedirectUrl']) {
-                    return FacebookLoginProvider::handleOAuthRedirect();
+                    return FacebookUserProvider::handleOAuthRedirect();
                 }
             })
             ->add('/-ivopetkov-facebook-user-redirect', function () use ($app, $config) {

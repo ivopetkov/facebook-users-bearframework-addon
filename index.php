@@ -8,16 +8,16 @@
  */
 
 use BearFramework\App;
-use IvoPetkov\BearFrameworkAddons\FacebookLoginProvider;
+use IvoPetkov\BearFrameworkAddons\FacebookUserProvider;
 
 $app = App::get();
 $context = $app->contexts->get(__DIR__);
 
 $context->classes
-        ->add(FacebookLoginProvider::class, 'classes/FacebookLoginProvider.php');
+        ->add(FacebookUserProvider::class, 'classes/FacebookUserProvider.php');
 
 $app->users
-        ->addProvider('facebook', FacebookLoginProvider::class);
+        ->addProvider('facebook', FacebookUserProvider::class);
 
 $app->localization
         ->addDictionary('en', function() use ($context) {
