@@ -28,8 +28,11 @@ class FacebookUserProvider extends Provider
     {
         $response = new \IvoPetkov\BearFrameworkAddons\Users\LoginResponse();
         $app = App::get();
-        $locationUrl = strlen($context->locationUrl) > 0 ? $context->locationUrl : $app->urls->get('/');
-        $response->redirectUrl = $app->urls->get('/-ivopetkov-facebook-user-redirect') . '?referer=' . rawurlencode($locationUrl);
+        $locationURL = (string)$context->locationUrl;
+        if (strlen($locationURL) === 0) {
+            $locationURL = $app->urls->get('/');
+        }
+        $response->redirectUrl = $app->urls->get('/-ivopetkov-facebook-user-redirect') . '?referer=' . rawurlencode($locationURL);
         return $response;
     }
 
