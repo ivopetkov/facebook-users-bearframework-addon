@@ -12,5 +12,13 @@
  */
 class FacebookUsersTest extends BearFramework\AddonTests\PHPUnitTestCase
 {
-    
+    /**
+     * 
+     */
+    public function testOutput()
+    {
+        $app = $this->getApp();
+
+        $this->assertTrue($app->users->getProvider('facebook') !== null);
+    }
 }
